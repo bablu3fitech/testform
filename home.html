@@ -1,0 +1,27 @@
+<form id="searchForm" action="{{ route('search.products') }}" method="GET">
+    <input type="text" id="searchInput" name="query" placeholder="Search products..." />
+    <button type="button" onclick="startVoiceRecognition()">🎤</button>
+    <button type="submit">Search</button>
+</form>
+<script>
+    function startVoiceRecognition() {
+        if ('webkitSpeechRecognition' in window) {
+            let recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.onresult = function(event) {
+                let spokenText = event.results[0][0].transcript;
+                let searchInput = document.getElementById('searchInput');
+
+                // Append voice input to existing text
+                if (searchInput.value) {
+                    searchInput.value += " " + spokenText;
+                } else {
+                    searchInput.value = spokenText;
+                }
+            };
+            recognition.start();
+        } else {
+            alert("Your browser does not support voice search.");
+        }
+    }
+</script>
