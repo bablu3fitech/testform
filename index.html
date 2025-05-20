@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Multi Booking Form</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="transition-all duration-300">
+
+  <!-- Tabs OUTSIDE the form -->
+  <div class="flex justify-center space-x-3 mt-8">
+    <button class="tab-btn px-4 py-2 rounded-full bg-green-600 text-white font-semibold" data-form="self-drive">Self Drive</button>
+    <button class="tab-btn px-4 py-2 rounded-full bg-gray-200 text-gray-800 font-semibold" data-form="taxi-booking">Taxi Booking</button>
+    <button class="tab-btn px-4 py-2 rounded-full bg-gray-200 text-gray-800 font-semibold" data-form="hotel-booking">Hotel Booking</button>
+    <button class="tab-btn px-4 py-2 rounded-full bg-gray-200 text-gray-800 font-semibold" data-form="holiday-package">Holiday Package</button>
+  </div>
+
+  <!-- FORM CONTAINER -->
+  <div id="formWrapper" class="min-h-screen flex items-center justify-center bg-yellow-400 transition-all duration-500">
+    <div class="bg-white rounded-2xl shadow-xl p-6 w-full max-w-md mt-10">
+
+      <!-- Shared Top Text -->
+      <p class="text-sm text-gray-500 mb-1">Looking for car rentals?</p>
+      <h2 id="formTitle" class="text-xl font-bold mb-4">Explore self-drive cars in <span class="text-green-600">Bangalore</span></h2>
+
+      <!-- Self Drive Form -->
+      <form id="self-drive" class="form-section space-y-4">
+        <input type="text" placeholder="Location" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+        <div class="flex gap-2">
+          <input type="datetime-local" class="w-1/2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+          <input type="datetime-local" class="w-1/2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500">
+        </div>
+        <label class="flex items-center text-sm">
+          <input type="checkbox" class="mr-2"> Delivery & Pick-up, from anywhere
+        </label>
+      </form>
+
+      <!-- Taxi Booking Form -->
+      <form id="taxi-booking" class="form-section space-y-4 hidden">
+        <input type="text" placeholder="From Location" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <input type="text" placeholder="To Location" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <input type="datetime-local" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+      </form>
+
+      <!-- Hotel Booking Form -->
+      <form id="hotel-booking" class="form-section space-y-4 hidden">
+        <input type="text" placeholder="City" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500">
+        <div class="flex gap-2">
+          <input type="date" class="w-1/2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500">
+          <input type="date" class="w-1/2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500">
+        </div>
+      </form>
+
+      <!-- Holiday Package Form -->
+      <form id="holiday-package" class="form-section space-y-4 hidden">
+        <input type="text" placeholder="Destination" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+        <div class="flex gap-2">
+          <input type="date" class="w-1/2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+          <input type="date" class="w-1/2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500">
+        </div>
+      </form>
+
+      <!-- Shared Search Button -->
+      <div class="mt-4">
+        <button class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg">SEARCH</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const bgColors = {
+      "self-drive": "bg-yellow-400",
+      "taxi-booking": "bg-blue-100",
+      "hotel-booking": "bg-pink-100",
+      "holiday-package": "bg-purple-100"
+    };
+
+    const titles = {
+      "self-drive": "Explore self-drive cars in <span class='text-green-600'>Bangalore</span>",
+      "taxi-booking": "Book a taxi in <span class='text-blue-600'>Bangalore</span>",
+      "hotel-booking": "Find hotels in <span class='text-pink-600'>Bangalore</span>",
+      "holiday-package": "Plan a holiday from <span class='text-purple-600'>Bangalore</span>"
+    };
+
+    $('.tab-btn').click(function() {
+      const formType = $(this).data('form');
+
+      // Switch form visibility
+      $('.form-section').addClass('hidden');
+      $('#' + formType).removeClass('hidden');
+
+      // Update background
+      $('#formWrapper').removeClass().addClass(`min-h-screen flex items-center justify-center ${bgColors[formType]} transition-all duration-500`);
+
+      // Update title
+      $('#formTitle').html(titles[formType]);
+
+      // Highlight active tab
+      $('.tab-btn').removeClass('bg-green-600 text-white').addClass('bg-gray-200 text-gray-800');
+      $(this).removeClass('bg-gray-200 text-gray-800').addClass('bg-green-600 text-white');
+    });
+  </script>
+<!-- <marquee>Bhati is our emplyee of the month</marquee> -->
+</body>
+</html>
